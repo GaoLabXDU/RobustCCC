@@ -1,0 +1,23 @@
+Package: RobustCCC
+Title: A tool to evaluate robustness of cell-cell communication methods
+Version: 1.0.0
+Authors@R: 
+    person("Chenxing", "Zhang", , "chenxing_zhang813@163.com", role = c("aut", "cre"))
+	person("Zhengyang", "Huang", , "471080179@qq.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+biocViews:
+Imports: 
+    BiocManager,
+    devtools,
+    Seurat,
+	limma,
+	parallel,
+	reticulate (<= 1.26)
+Depends: 
+    Biobase,
+    tidyverse
