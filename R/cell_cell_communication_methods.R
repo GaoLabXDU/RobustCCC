@@ -21,83 +21,82 @@ deprintize<-function(f){
 #'
 #' @examples
 run_CCC_methods <- function(name_mat, Lcell, Rcell, mat_ori, label_ori, list_methods, path_result){
-  list_methods <- tolower(list_methods)
   path_result_CCC <- paste(path_result,'CCCmethods',sep='//')
   if(!dir.exists(path_result_CCC)){dir.create(path_result_CCC)}
   ####################################################################################
   ## 11 method based on R
   ####################################################################################
   # M1 CellCall
-  if("cellcall" %in% list_methods){
+  if("CellCall" %in% list_methods){
     print("CellCall,start")
     deprintize(run_CellCall)(mat_ori, label_ori, path_result_CCC, name_mat)
     print("CellCall,end")
   }
 
   # M2 CellChat
-  if("cellchat" %in% list_methods){
+  if("CellChat" %in% list_methods){
     print("CellChat,start")
     deprintize(run_CellChat)(mat_ori, label_ori, path_result_CCC, name_mat, Lcell, Rcell)
     print("CellChat,end")
   }
   # M3 CytoTalk
-  if("cytotalk" %in% list_methods){
+  if("CytoTalk" %in% list_methods){
     print("CytoTalk,start")
     deprintize(run_Cytotalk)(mat_ori, label_ori, path_result_CCC, name_mat, Lcell, Rcell)
     print("CytoTalk,end")
   }
 
-  # M4 iCellNet
-  if("icellnet" %in% list_methods){
-    print("iCellNet,start")
+  # M4 ICELLNET
+  if("ICELLNET" %in% list_methods){
+    print("ICELLNET,start")
     deprintize(run_iCellNet)(mat_ori, label_ori, path_result_CCC, name_mat, Lcell, Rcell)
-    print("iCellNet,end")
+    print("ICELLNET,end")
   }
 
   # M5 iTALK
-  if("italk" %in% list_methods){
+  if("iTALK" %in% list_methods){
     print("iTALK,start")
     deprintize(run_iTalk)(mat_ori, label_ori, path_result_CCC, name_mat)
     print("iTALK,end")
   }
 
   # M6 NicheNet
-  if("nichenet" %in% list_methods){
+  if("NicheNet" %in% list_methods){
     print("NicheNet,start")
     deprintize(run_NicheNet)(mat_ori, label_ori, path_result_CCC, name_mat, Lcell, Rcell)
     print("NicheNet,end")
   }
 
   # M7 scMLnet
-  if("scmlnet" %in% list_methods){
+  if("scMLnet" %in% list_methods){
     print("scMLnet,start")
     deprintize(run_scMLnet)(mat_ori, label_ori, path_result_CCC, name_mat, Lcell, Rcell)
     print("scMLnet,end")
   }
 
   # M8 SingleCellSignalR
-  if("singlecellsignalr" %in% list_methods){
+  if("SingleCellSignalR" %in% list_methods){
     print("SingleCellSignalR,start")
     deprintize(run_SingleCellSignalR)(mat_ori, label_ori, path_result_CCC, name_mat, Lcell, Rcell)
     print("SingleCellSignalR,end")
   }
 
   # M9 Zhou
-  if("zhou" %in% list_methods){
+  if("Zhou" %in% list_methods){
     print("Zhou,start")
     deprintize(run_Zhou)(mat_ori, label_ori, path_result_CCC, name_mat, Lcell, Rcell)
     print("Zhou,end")
   }
 
   # M10 Skelly
-  if("skelly" %in% list_methods){
+  if("Skelly" %in% list_methods){
     print("Skelly,start")
     deprintize(run_Skelly)(mat_ori, label_ori, path_result_CCC, name_mat, Lcell, Rcell)
     print("Skelly,end")
   }
 
   # M11 Kumar
-  if("kumar" %in% list_methods){
+  if("Kumar" %in% list_methods){
     print("Kumar,start")
     deprintize(run_Kumar)(mat_ori, label_ori, path_result_CCC, name_mat, Lcell, Rcell)
     print("Kumar,end")
@@ -107,7 +106,7 @@ run_CCC_methods <- function(name_mat, Lcell, Rcell, mat_ori, label_ori, list_met
   ## 3 method based on python
   ####################################################################################
   # M12 NATMI
-  if("natmi" %in% list_methods){
+  if("NATMI" %in% list_methods){
     print("NATMI,start")
     natmi <- import_from_path('NATMI_py', path=system.file('python', package='RobustCCC'), convert=TRUE)
     path_NATMI_info = system.file('depend_cell_cell_communication_methods','NATMI',package='RobustCCC')
@@ -116,7 +115,7 @@ run_CCC_methods <- function(name_mat, Lcell, Rcell, mat_ori, label_ori, list_met
   }
 
   # M13 scConnect
-  if("scconnect" %in% list_methods){
+  if("scConnect" %in% list_methods){
     print("scConnect,start")
     scconnect <- import_from_path('scconnect_py', path=system.file('python', package='RobustCCC'), convert=TRUE)
     deprintize(scconnect$run_scConnect)(mat_ori, label_ori, path_result_CCC, name_mat)
@@ -124,7 +123,7 @@ run_CCC_methods <- function(name_mat, Lcell, Rcell, mat_ori, label_ori, list_met
   }
 
   # M14 CellPhoneDB
-  if("cellphonedb" %in% list_methods){
+  if("CellPhoneDB" %in% list_methods){
     print("CellPhoneDB,start")
     cellphonedb <- import_from_path('CellPhoneDB_py', path=system.file('python', package='RobustCCC'), convert=TRUE)
     path_cpdb = system.file('depend_cell_cell_communication_methods','CellPhoneDB',package='RobustCCC')

@@ -17,9 +17,6 @@ run_split_mat_to_cell_type_pairs(path_data, name_mat, name_label, Lcell, Rcell)
 
 \item{Rcell}{Name of receptor(receiver) cell}
 }
-\value{
-
-}
 \description{
 Split original scRNA-seq data to cell type pair scRNA-seq data
 }

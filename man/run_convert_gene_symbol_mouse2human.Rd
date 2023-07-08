@@ -13,9 +13,6 @@ run_convert_gene_symbol_mouse2human(path_data, name_mat, species)
 
 \item{species}{Species name of scRNA-seq data}
 }
-\value{
-
-}
 \description{
 Convert mouse gene symbol to mouse gene symbol
 }

@@ -1,3 +1,22 @@
+#' @noRd
+# convert form
+#   list_methods = c("CellCall","CellChat","CytoTalk","ICELLNET","iTALK","NicheNet","scMLnet","SingleCellSignalR","Zhou","Skelly","Kumar","NATMI","scConnect","CellPhoneDB")
+# to
+#   list_methods = c("cellcall","CellChat","CytoTalk","icellnet","iTALK","nichenetr","scMLnet","SingleCellSignalR","Zhou","Skelly","Kumar","natmi","scconnect","cellphonedb")
+convert_methodName_2_packageName <- function(list_methods){
+  list_packageName = c()
+  for(method in list_methods){
+    if(method=="CellCall"){method="cellcall"}
+    if(method=="ICELLNET"){method="icellnet"}
+    if(method=="NicheNet"){method="nichenetr"}
+    if(method=="NATMI"){method="natmi"}
+    if(method=="scConnect"){method="scconnect"}
+    if(method=="CellPhoneDB"){method="cellphonedb"}
+    list_packageName = append(list_packageName,method)
+  }
+  return(list_packageName)
+}
+
 #' Check CCC packages
 #'
 #' Check R and python packages of cell-cell communication methods
@@ -9,9 +28,10 @@
 #'
 #' @examples
 check_CCC_packages <- function(list_methods){
+  list_methods = convert_methodName_2_packageName(list_methods)
   # all supported methods
   list_methods_all_R = c("cellcall","CellChat","CytoTalk","icellnet","iTALK","nichenetr","scMLnet","SingleCellSignalR")
-  list_methods_all_python = c("scConnect","CellPhoneDB")
+  list_methods_all_python = c("scconnect","cellphonedb")
 
   # user selected methods
   list_methods_select_R = intersect(list_methods, list_methods_all_R)
@@ -19,7 +39,7 @@ check_CCC_packages <- function(list_methods){
 
   # stats not-installed methods
   list_methods_not_installed_R = setdiff(list_methods_select_R, rownames(installed.packages()))
-  list_methods_not_installed_python = setdiff(tolower(list_methods_select_python), reticulate::py_list_packages()$package)
+  list_methods_not_installed_python = setdiff(list_methods_select_python, reticulate::py_list_packages()$package)
 
   list_methods_not_installed = c(list_methods_not_installed_R, list_methods_not_installed_python)
 
@@ -47,13 +67,14 @@ check_CCC_packages <- function(list_methods){
 #'
 #' @examples
 install_CCC_packages <- function(list_methods){
+  list_methods = convert_methodName_2_packageName(list_methods)
   # all supported methods
   list_methods_all_R = c("cellcall","CellChat","CytoTalk","icellnet","iTALK","nichenetr","scMLnet","SingleCellSignalR")
-  list_methods_all_python = c("scConnect","cellphonedb")
+  list_methods_all_python = c("scconnect","cellphonedb")
 
   # user selected but not-installed methods
   list_methods_select_R = intersect(list_methods, list_methods_all_R)
-  list_methods_select_python = intersect(tolower(list_methods), tolower(list_methods_all_python))
+  list_methods_select_python = intersect(list_methods, list_methods_all_python)
 
   # install methods
   for(method in list_methods_select_R){install_r_packages(method)}
@@ -65,11 +86,11 @@ install_CCC_packages <- function(list_methods){
 install_r_packages <- function(method){
   # install github R packages
 
-  # cellcall
+  # CellCall
   # https://github.com/ShellyCoder/cellcall
   if(method == "cellcall"){
     cat('start install cellcall\n')
-    BiocManager::install(c('clusterProfiler', 'ComplexHeatmap', 'enrichplot', 'DOSE'))
+    BiocManager::install(c('clusterProfiler', 'ComplexHeatmap', 'enrichplot', 'DOSE','GO.db'))
     devtools::install_github("ShellyCoder/cellcall",type = "source")
   }
   # CellChat
@@ -84,6 +105,7 @@ install_r_packages <- function(method){
   # https://github.com/tanlabcode/CytoTalk
   if(method == "CytoTalk"){
     cat('start install CytoTalk\n')
+    reticulate::py_install('entropy', pip = TRUE)
     devtools::install_github("tanlabcode/CytoTalk@c00132c")
   }
 
@@ -141,6 +163,7 @@ install_python_packages <- function(method){
   reticulate::py_install('pandas==1.5.3', pip = TRUE)
   reticulate::py_install('fsspec', pip = TRUE)
   reticulate::py_install('rbo', pip = TRUE)
+  reticulate::py_install('scipy', pip = TRUE)
 
   # NATMI, no installation required, already included in 'NATMI.py'
   # https://github.com/asrhou/NATMI

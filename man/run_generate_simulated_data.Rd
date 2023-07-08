@@ -32,9 +32,6 @@ run_generate_simulated_data(
 
 \item{Rcell}{Name of receptor(receiver) cell}
 }
-\value{
-
-}
 \description{
 Generate simulated data
 }

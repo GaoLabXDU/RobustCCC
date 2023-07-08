@@ -32,9 +32,6 @@ run_evaluate_robustness(
 
 \item{name_mat_2}{Name of the second scRNA-seq replicate data}
 }
-\value{
-
-}
 \description{
 Evaluate robustness of cell-cell communication by calculating the similarity
 between inferred LR pairs in the original data and simulated data. The name_mat_1

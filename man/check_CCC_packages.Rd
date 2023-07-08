@@ -9,9 +9,6 @@ check_CCC_packages(list_methods)
 \arguments{
 \item{list_methods}{List of cell-cell communication methods}
 }
-\value{
-
-}
 \description{
 Check R and python packages of cell-cell communication methods
 }

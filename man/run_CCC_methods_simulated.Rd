@@ -29,9 +29,6 @@ run_CCC_methods_simulated(
 
 \item{path_result}{Path of result}
 }
-\value{
-
-}
 \description{
 Load simulated data and run cell-cell communication methods in simulated data
 }

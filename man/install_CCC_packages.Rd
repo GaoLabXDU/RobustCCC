@@ -9,9 +9,6 @@ install_CCC_packages(list_methods)
 \arguments{
 \item{List}{of cell-cell communication methods}
 }
-\value{
-
-}
 \description{
 Install R and python packages of cell-cell communication methods
 }

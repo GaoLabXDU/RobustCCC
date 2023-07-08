@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
+from scipy.stats import combine_pvalues
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -131,8 +132,13 @@ def extract_LRlist_NicheNet(table_result):
 
 def extract_LRlist_scMLnet(table_result):
     if len(table_result) ==0: return([])
+    list_Pva_Lig = table_result['Pva_Lig'].tolist()
+    list_Pva_Rec = table_result['Pva_Rec'].tolist()
+    table_result['commuPvalue'] = [combine_pvalues([list_Pva_Lig[pva_i], list_Pva_Rec[pva_i]])[1] for pva_i in
+                                     range(len(list_Pva_Lig))]
     table_result['lr'] = table_result['Lig'] + '_' + table_result['Rec']
-    LRlist = table_result['lr'].to_list()
+    table_sort = table_result.sort_values(by='commuPvalue', ascending=True)
+    LRlist = table_sort['lr'].to_list()
     LRlist = np.array(LRlist)
     return(LRlist)
 
@@ -151,8 +157,10 @@ def extract_LRlist_Skelly(table_result):
     table_result = table_result.loc[((table_result['rate_Lcells_Expressed']>0.2)&
                                          (table_result['rate_Rcells_Expressed']>0.2)),]
     if len(table_result) == 0: return ([])
+    table_result['commuScore'] = table_result['rate_Lcells_Expressed'] * table_result['rate_Rcells_Expressed']
     table_result['lr'] = table_result['Ligand'] + '_' + table_result['Receptor']
-    LRlist = table_result['lr'].to_list()
+    table_sort = table_result.sort_values(by='commuScore', ascending=False)
+    LRlist = table_sort['lr'].to_list()
     LRlist = np.array(LRlist)
     return(LRlist)
 
@@ -163,8 +171,13 @@ def extract_LRlist_Zhou(table_result):
                                          (table_result['Pva_Lig'] <0.05)&
                                          (table_result['Pva_Rec'] <0.05)),]
     if len(table_result) == 0: return ([])
+    list_Pva_Lig = table_result['Pva_Lig'].tolist()
+    list_Pva_Rec = table_result['Pva_Rec'].tolist()
+    table_result['commuPvalue'] = [combine_pvalues([list_Pva_Lig[pva_i], list_Pva_Rec[pva_i]])[1] for pva_i in
+                                   range(len(list_Pva_Lig))]
     table_result['lr'] = table_result['Ligand'] + '_' + table_result['Receptor']
-    LRlist = table_result['lr'].to_list()
+    table_sort = table_result.sort_values(by='commuPvalue', ascending=True)
+    LRlist = table_sort['lr'].to_list()
     LRlist = np.array(LRlist)
     return(LRlist)
 
@@ -173,7 +186,7 @@ def extract_LRlist(table_result,cellType1, cellType2, method):
         LRlist = extract_LRlist_cellPhoneDB(table_result, cellType1, cellType2)
     if method == 'CellChat':
         LRlist = extract_LRlist_CellChat(table_result)
-    if method == 'iCellNet':
+    if method == 'ICELLNET':
         LRlist = extract_LRlist_iCellNet(table_result)
     if method == 'iTALK':
         LRlist = extract_LRlist_iTALK(table_result,cellType1, cellType2)

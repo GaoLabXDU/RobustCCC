@@ -29,9 +29,6 @@ run_CCC_methods(
 
 \item{path_result}{Path of result}
 }
-\value{
-
-}
 \description{
 Run cell-cell communication methods
 }
