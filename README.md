@@ -149,3 +149,6 @@ After running cell-cell communication(Step 4), the top results of each methods (
 ```
 run_aggregate_results(name_mat_CTP, Lcell, Rcell, list_methods, path_result, top=30)
 ```
+
+## Reference
+Zhang C, Gao L, Hu Y, Huang Z. RobustCCC: a robustness evaluation tool for cell-cell communication methods, Frontiers in Genetics, 2023. doi: 10.3389/fgene.2023.1236956.
